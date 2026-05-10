@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <ru.nikita.challengetimer.CircularTimerView
+    <ru.nikita.challengetimer.customView.CircularTimerView
         android:id="@+id/timerView"
         android:layout_width="320dp"
         android:layout_height="320dp"

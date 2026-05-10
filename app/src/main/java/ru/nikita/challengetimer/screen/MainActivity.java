@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer;
+package ru.nikita.challengetimer.screen;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import ru.nikita.challengetimer.R;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment timerFragment, rewardsFragment, notesFragment, infoFragment;

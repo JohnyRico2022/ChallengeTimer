@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer;
+package ru.nikita.challengetimer.screen;
 
 import android.os.Bundle;
 
@@ -14,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Locale;
+
+import ru.nikita.challengetimer.common.ChallengeStart;
+import ru.nikita.challengetimer.customView.CircularTimerView;
+import ru.nikita.challengetimer.R;
 
 
 public class TimerFragment extends Fragment {

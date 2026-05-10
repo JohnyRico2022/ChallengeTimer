@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer;
+package ru.nikita.challengetimer.customView;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,6 +6,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+
+import ru.nikita.challengetimer.common.ChallengeStart;
+import ru.nikita.challengetimer.common.ChallengeTarget;
 
 public class CircularTimerView extends View {
 

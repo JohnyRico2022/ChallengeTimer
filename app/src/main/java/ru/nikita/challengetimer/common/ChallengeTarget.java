@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer;
+package ru.nikita.challengetimer.common;
 
 public enum ChallengeTarget {
     D1(1), D3(3), D5(5), D7(7),

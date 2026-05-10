@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer;
+package ru.nikita.challengetimer.common;
 
 import java.util.Calendar;
 

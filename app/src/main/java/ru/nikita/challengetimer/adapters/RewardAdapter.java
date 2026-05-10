@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer;
+package ru.nikita.challengetimer.adapters;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import ru.nikita.challengetimer.common.ChallengeStart;
+import ru.nikita.challengetimer.common.ChallengeTarget;
+import ru.nikita.challengetimer.R;
 
 public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder> {
     private final ChallengeTarget[] goals = ChallengeTarget.ALL;

@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer;
+package ru.nikita.challengetimer.screen;
 
 import android.os.Bundle;
 
@@ -13,6 +13,9 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import ru.nikita.challengetimer.R;
+import ru.nikita.challengetimer.adapters.RewardAdapter;
 
 
 public class RewardsFragment extends Fragment {
