@@ -2,23 +2,48 @@ package ru.nikita.challengetimer;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    private Fragment timerFragment, rewardsFragment, notesFragment, infoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        timerFragment = new TimerFragment();
+        rewardsFragment = new RewardsFragment();
+        notesFragment = new NotesFragment();
+        infoFragment = new InfoFragment();
+
+        BottomNavigationView nav = findViewById(R.id.bottom_nav);
+        nav.setOnItemSelectedListener(item -> {
+            Fragment target;
+
+            if (item.getItemId() == R.id.nav_timer)
+                target = timerFragment;
+            else if (item.getItemId() == R.id.nav_rewards)
+                target = rewardsFragment;
+            else if (item.getItemId() == R.id.nav_notes)
+                target = notesFragment;
+            else
+                target = infoFragment;
+
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, target)
+                    .commit();
+            return true;
         });
+
+        /// Показываем таймер по умолчанию
+        if (savedInstanceState == null) {
+            nav.setSelectedItemId(R.id.nav_timer);
+        }
     }
 }

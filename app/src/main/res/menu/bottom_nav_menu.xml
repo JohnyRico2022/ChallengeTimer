@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_timer"
+        android:icon="@drawable/ic_timer_24"
+        android:title="Таймер" />
+
+    <item
+        android:id="@+id/nav_rewards"
+        android:icon="@drawable/ic_star_24"
+        android:title="Награды" />
+
+    <item
+        android:id="@+id/nav_notes"
+        android:icon="@drawable/ic_add_notes_24"
+        android:title="Заметки" />
+
+    <item
+        android:id="@+id/nav_info"
+        android:icon="@drawable/ic_person_24"
+        android:title="Инфо" />
+</menu>
