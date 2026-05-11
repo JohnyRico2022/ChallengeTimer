@@ -1,5 +1,6 @@
 package ru.nikita.challengetimer.screen;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,14 +9,17 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ru.nikita.challengetimer.R;
+import ru.nikita.challengetimer.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment timerFragment, rewardsFragment, notesFragment, infoFragment;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         timerFragment = new TimerFragment();
         rewardsFragment = new RewardsFragment();
@@ -35,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
             else
                 target = infoFragment;
 
-
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, target)
                     .commit();
             return true;
         });
+
+        binding.sosFab.setOnClickListener(View -> startActivity(new Intent(this, SosActivity.class)));
 
         /// Показываем таймер по умолчанию
         if (savedInstanceState == null) {

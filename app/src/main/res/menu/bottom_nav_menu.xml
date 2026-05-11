@@ -11,6 +11,10 @@
         android:title="Награды" />
 
     <item
+        android:id="@+id/free"
+        android:title="" />
+
+    <item
         android:id="@+id/nav_notes"
         android:icon="@drawable/ic_add_notes_24"
         android:title="Заметки" />

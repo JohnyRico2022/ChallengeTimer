@@ -19,9 +19,7 @@ import ru.nikita.challengetimer.common.ChallengeStart;
 import ru.nikita.challengetimer.customView.CircularTimerView;
 import ru.nikita.challengetimer.R;
 
-
 public class TimerFragment extends Fragment {
-
 
     private CircularTimerView timerView;
     private TextView tvPassedValue;
@@ -67,12 +65,10 @@ public class TimerFragment extends Fragment {
         long now = System.currentTimeMillis();
         long elapsed = Math.max(0, now - start);
 
-
         long d = elapsed / (24 * 60 * 60 * 1000);
         long h = (elapsed % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000);
         long m = (elapsed % (60 * 60 * 1000)) / (60 * 1000);
         long s = (elapsed % (60 * 1000)) / 1000;
         tvPassedValue.setText(String.format(Locale.getDefault(), "%d дн. %02d:%02d:%02d", d, h, m, s));
     }
-
 }

@@ -6,7 +6,6 @@
     android:background="#FAFAFA"
     android:orientation="vertical">
 
-
     <ru.nikita.challengetimer.customView.CircularTimerView
         android:id="@+id/timerView"
         android:layout_width="320dp"

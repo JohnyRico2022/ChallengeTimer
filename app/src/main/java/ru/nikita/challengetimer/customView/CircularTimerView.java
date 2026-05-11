@@ -125,8 +125,6 @@ public class CircularTimerView extends View {
         canvas.drawText(goalText, cx, baseline + 50, textPaint);
 
         canvas.drawText("Цель:", cx, baseline - 50, textPaint);
-
-
     }
 
     public long getStartDateMillis() {

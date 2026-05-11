@@ -15,4 +15,3 @@ public enum ChallengeTarget {
     /// Для перебора
     public static final ChallengeTarget[] ALL = values();
 }
-
