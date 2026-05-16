@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen;
+package ru.nikita.challengetimer.screen.fragment;
 
 import android.os.Bundle;
 
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import ru.nikita.challengetimer.common.ChallengeStart;
+import ru.nikita.challengetimer.common.MarathonManager;
 import ru.nikita.challengetimer.customView.CircularTimerView;
 import ru.nikita.challengetimer.R;
 
@@ -37,6 +37,11 @@ public class TimerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         timerView = view.findViewById(R.id.timerView);
         tvPassedValue = view.findViewById(R.id.tvPassedValue);
+        // TextView title = view.findViewById(R.id.title);
+
+//        int activeDays = MarathonManager.getActiveDays(requireContext());
+//        String strTitle = (activeDays > 0) ? "Марафон: " + activeDays + " дней" : "Челлендж Таймер";
+        // title.setText(strTitle);
 
         tickRunnable = new Runnable() {
             @Override
@@ -61,7 +66,7 @@ public class TimerFragment extends Fragment {
     }
 
     private void updateElapsedText() {
-        long start = ChallengeStart.getHardcodedStart();
+        long start = MarathonManager.getStartTime(this.requireContext());
         long now = System.currentTimeMillis();
         long elapsed = Math.max(0, now - start);
 

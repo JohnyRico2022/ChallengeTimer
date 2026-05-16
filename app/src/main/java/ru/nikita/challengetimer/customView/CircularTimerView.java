@@ -9,6 +9,7 @@ import android.view.View;
 
 import ru.nikita.challengetimer.common.ChallengeStart;
 import ru.nikita.challengetimer.common.ChallengeTarget;
+import ru.nikita.challengetimer.common.MarathonManager;
 
 public class CircularTimerView extends View {
 
@@ -22,6 +23,8 @@ public class CircularTimerView extends View {
     private final float[] radii = new float[4];
 
     private long startDateMillis;
+    private int targetDays = 0;
+    private boolean isCompleted = false;
     private int currentTargetIndex = 0;
 
     public CircularTimerView(Context context) {
@@ -31,10 +34,15 @@ public class CircularTimerView extends View {
     public CircularTimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
-        loadStartDate();
+        // loadStartDate();
     }
 
+
     private void init() {
+
+        targetDays = MarathonManager.getActiveDays(getContext());
+        startDateMillis = MarathonManager.getStartTime(getContext());
+
         ringPaint.setStyle(Paint.Style.STROKE);
         ringPaint.setStrokeWidth(strokeWidth);
         ringPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -61,37 +69,28 @@ public class CircularTimerView extends View {
     }
 
     public void tick() {
+        if (!MarathonManager.hasActive(getContext())) return;
+
         long now = System.currentTimeMillis();
         long elapsed = Math.max(0, now - startDateMillis);
+        long sec = (elapsed / 1000) % 60;
+        long min = (elapsed / 60000) % 60;
+        long hr = (elapsed / 3600000) % 24;
+        long daysElapsed = elapsed / 86400000;
 
-        // 🔢 Компоненты прошедшего времени
-        long seconds = (elapsed / 1000) % 60;
-        long minutes = (elapsed / (1000 * 60)) % 60;
-        long hours = (elapsed / (1000 * 60 * 60)) % 24;
-        long days = elapsed / (24L * 60 * 60 * 1000);
+        progress[0] = sec / 60f;
+        progress[1] = min / 60f;
+        progress[2] = hr / 24f;
+        progress[3] = Math.min(1f, daysElapsed / (float) targetDays);
 
-        // 📈 Прогресс внутренних колец (0.0 -> 1.0)
-        progress[0] = seconds / 60f; // секунды текущей минуты
-        progress[1] = minutes / 60f; // минуты текущего часа
-        progress[2] = hours / 24f;   // часы текущего дня (от старта!)
-
-        // 🎯 Динамический поиск ближайшей цели
-        int newIdx = 0;
-        for (int i = 0; i < ChallengeTarget.ALL.length; i++) {
-            if (days < ChallengeTarget.ALL[i].days) {
-                newIdx = i;
-                break;
-            }
-            newIdx = i;
+        // 🏁 Проверка завершения
+        if (!isCompleted && daysElapsed >= targetDays) {
+            isCompleted = true;
+            MarathonManager.completeMarathon(getContext(), targetDays);
+//            if (goalListener != null)
+//                goalListener.onGoalReached(new ChallengeGoal() { days = targetDays; }); // Или передай просто int
+//            NotificationHelper.sendGoalReachedNotification(getContext(), targetDays);
         }
-
-        // 🔄 Переключение цели
-        if (newIdx != currentTargetIndex) {
-            currentTargetIndex = newIdx;
-        }
-
-        int targetDays = ChallengeTarget.ALL[currentTargetIndex].days;
-        progress[3] = Math.min(1f, days / (float) targetDays);
 
         invalidate();
     }
@@ -118,7 +117,8 @@ public class CircularTimerView extends View {
         }
 
         // 3. Текст цели в центре
-        String goalText = ChallengeTarget.ALL[currentTargetIndex].days + " дн.";
+        String goalText = targetDays + " дн.";
+      //  String goalText = ChallengeTarget.ALL[currentTargetIndex].days + " дн.";
         float textSize = getWidth() * 0.10f;
         textPaint.setTextSize(textSize);
         float baseline = cy - (textPaint.descent() + textPaint.ascent()) / 2f;

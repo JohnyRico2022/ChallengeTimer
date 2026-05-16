@@ -6,6 +6,21 @@
     android:background="#FAFAFA"
     android:orientation="vertical">
 
+   <!-- <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:paddingVertical="12dp"
+        android:text="title 3 дня"
+        android:textColor="@color/blue"
+        android:textSize="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+
     <ru.nikita.challengetimer.customView.CircularTimerView
         android:id="@+id/timerView"
         android:layout_width="320dp"

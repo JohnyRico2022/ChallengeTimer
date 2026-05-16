@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen;
+package ru.nikita.challengetimer.screen.fragment;
 
 import android.os.Bundle;
 

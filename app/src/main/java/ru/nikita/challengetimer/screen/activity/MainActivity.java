@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen;
+package ru.nikita.challengetimer.screen.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,12 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ru.nikita.challengetimer.R;
+import ru.nikita.challengetimer.common.MarathonManager;
 import ru.nikita.challengetimer.databinding.ActivityMainBinding;
+import ru.nikita.challengetimer.screen.fragment.InfoFragment;
+import ru.nikita.challengetimer.screen.fragment.NotesFragment;
+import ru.nikita.challengetimer.screen.fragment.RewardsFragment;
+import ru.nikita.challengetimer.screen.fragment.TimerFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment timerFragment, rewardsFragment, notesFragment, infoFragment;
@@ -20,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // 🚪 Если нет активного марафона -> на экран выбора
+        if (!MarathonManager.hasActive(this)) {
+            startActivity(new Intent(this, WelcomeActivity.class));
+            finish();
+            return;
+        }
 
         timerFragment = new TimerFragment();
         rewardsFragment = new RewardsFragment();

@@ -11,10 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChallengeTimer">
         <activity
-            android:name=".screen.SosActivity"
+            android:name=".screen.activity.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.MainActivity"
+            android:name=".screen.activity.SosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screen.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
