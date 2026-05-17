@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen.fragment;
+package ru.nikita.challengetimer.ui.fragments;
 
 import android.os.Bundle;
 
@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import ru.nikita.challengetimer.database.AppDatabase;
-import ru.nikita.challengetimer.database.Note;
+import ru.nikita.challengetimer.data.database.AppDatabase;
+import ru.nikita.challengetimer.data.database.Note;
 import ru.nikita.challengetimer.databinding.FragmentNotesBinding;
-import ru.nikita.challengetimer.note.AddNoteDialog;
-import ru.nikita.challengetimer.note.ChallengeNoteAdapter;
+import ru.nikita.challengetimer.ui.dialogs.AddNoteDialog;
+import ru.nikita.challengetimer.ui.adapters.ChallengeNoteAdapter;
 
 public class NotesFragment extends Fragment {
 
@@ -39,9 +39,6 @@ public class NotesFragment extends Fragment {
         binding = FragmentNotesBinding.inflate(getLayoutInflater(), container, false);
 
         binding.addNote.setOnClickListener(View -> openAddNoteDialog());
-
-        // В твоем фрагменте/активности
-        //RecyclerView rv = findViewById(R.id.rvNotes);
         binding.noteRecycler.setLayoutManager(new LinearLayoutManager(this.requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.noteRecycler.setClipToPadding(false);
         binding.noteRecycler.setPadding(16, 8, 16, 8); // отступы по краям
@@ -58,9 +55,9 @@ public class NotesFragment extends Fragment {
         dialog.show(getChildFragmentManager(), "AddNoteDialog");
     }
 
-    // 2. Загрузка из Room
+    /// Загрузка из Room
     private void loadNotesFromDb() {
-        if (isLoading) return; // ← Защита от повторного вызова
+        if (isLoading) return; // Защита от повторного вызова
         isLoading = true;
 
         Executors.newSingleThreadExecutor().execute(() -> {
@@ -71,7 +68,7 @@ public class NotesFragment extends Fragment {
 
                 requireActivity().runOnUiThread(() -> {
                     adapter.setNotes(dbNotes);
-                    isLoading = false; // ← Сброс флага ТОЛЬКО в UI-потоке
+                    isLoading = false;
                 });
             } catch (Exception e) {
                 isLoading = false;
@@ -80,13 +77,9 @@ public class NotesFragment extends Fragment {
         });
     }
 
-
-    // Вызов при старте
     @Override
     public void onResume() {
         super.onResume();
         loadNotesFromDb();
     }
-
-
 }

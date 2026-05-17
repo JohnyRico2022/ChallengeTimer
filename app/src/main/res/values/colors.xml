@@ -8,6 +8,7 @@
     <color name="white30">#4DFFFFFF</color>
     <color name="grey50">#80AEAAAA</color>
     <color name="purple80">#CC9C27B0</color>
+    <color name="purple50">#809C27B0</color>
 
     <color name="marathon_default_bg">#2196F3</color>
     <color name="marathon_completed_bg">#4CAF50</color>

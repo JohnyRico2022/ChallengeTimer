@@ -1,8 +1,8 @@
-package ru.nikita.challengetimer.note;
+package ru.nikita.challengetimer.ui.adapters;
 
+import android.content.Context;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import ru.nikita.challengetimer.common.ChallengeStart;
-import ru.nikita.challengetimer.database.Note;
+import ru.nikita.challengetimer.data.MarathonManager;
+import ru.nikita.challengetimer.data.database.Note;
 import ru.nikita.challengetimer.databinding.ItemNoteBinding;
+import ru.nikita.challengetimer.common.PartOfDay;
 
 public class ChallengeNoteAdapter extends RecyclerView.Adapter<ChallengeNoteAdapter.NoteVH> {
 
@@ -46,7 +47,7 @@ public class ChallengeNoteAdapter extends RecyclerView.Adapter<ChallengeNoteAdap
 
         // 🔑 Явно задаём ВСЕ поля при КАЖДОМ биндинге (защита от рециклинга)
         holder.binding.tvDate.setText(sdf.format(note.date));
-        holder.binding.tvDayNum.setText("День " + calculateDayNumber(note.date));
+        holder.binding.tvDayNum.setText("День " + calculateDayNumber(holder.binding.getRoot().getContext()));
         holder.binding.ivExpand.setRotation(isExpanded ? 180 : 0);
 
         // 🔑 Критично: явно задаём видимость контента
@@ -58,7 +59,6 @@ public class ChallengeNoteAdapter extends RecyclerView.Adapter<ChallengeNoteAdap
             holder.binding.noteCard.setStrokeColor(0xFF2196F3);
 
             // Заполняем данные только если раскрыто (оптимизация)
-           // holder.binding.tvTitle.setText(note.title);
             holder.binding.tvDescription.setText(note.description);
             holder.binding.tvDayOfWeek.setText(note.day.getDisplayName(TextStyle.FULL, Locale.getDefault()));
             holder.binding.tvPartOfDay.setText(getPartOfDayString(note.partOfDay));
@@ -70,6 +70,13 @@ public class ChallengeNoteAdapter extends RecyclerView.Adapter<ChallengeNoteAdap
         }
 
         holder.binding.noteCard.setChecked(isExpanded);
+
+        if (note.marathonDays > 0) {
+            holder.binding.tvMarathon.setText("Марафон: " + note.marathonDays + " дн.");
+            holder.binding.tvMarathon.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.tvMarathon.setVisibility(View.GONE);
+        }
 
         // 🔑 Обработчик клика
         holder.itemView.setOnClickListener(v -> {
@@ -106,16 +113,20 @@ public class ChallengeNoteAdapter extends RecyclerView.Adapter<ChallengeNoteAdap
         return notes.size();
     }
 
-    // Вспомогательный метод для расчёта дня
-    private int calculateDayNumber(long noteDate) {
-        long days = (noteDate - ChallengeStart.getHardcodedStart()) / 86400000;
-        return (int) Math.max(1, days + 1);
+    /// Вспомогательный метод для расчёта дня
+    private int calculateDayNumber(Context context) {
+
+        long start = MarathonManager.getStartTime(context);
+        long now = System.currentTimeMillis();
+        long elapsed = Math.max(0, now - start);
+        long d = elapsed / (24 * 60 * 60 * 1000);
+        return (int) d + 1;
     }
 
     static class NoteVH extends RecyclerView.ViewHolder {
         final ItemNoteBinding binding;
 
-        NoteVH(ItemNoteBinding binding) {
+        NoteVH(@NonNull ItemNoteBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

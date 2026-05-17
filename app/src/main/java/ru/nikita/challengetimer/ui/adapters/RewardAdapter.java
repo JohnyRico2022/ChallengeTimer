@@ -1,18 +1,17 @@
-package ru.nikita.challengetimer.adapters;
+package ru.nikita.challengetimer.ui.adapters;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import ru.nikita.challengetimer.R;
-import ru.nikita.challengetimer.common.ChallengeStart;
-import ru.nikita.challengetimer.common.MarathonManager;
+import ru.nikita.challengetimer.data.MarathonManager;
 import ru.nikita.challengetimer.databinding.ItemRewardsBinding;
+import ru.nikita.challengetimer.utils.Utils;
 
 public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder> {
     private final int[] ALL_MARATHONS = {1, 3, 5, 7, 10, 14};
@@ -21,7 +20,8 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
             "Декада привычки", "Путь мастера"
     };
 
-    @NonNull @Override
+    @NonNull
+    @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemRewardsBinding binding = ItemRewardsBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false);
@@ -34,7 +34,7 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
         boolean done = MarathonManager.isCompleted(holder.binding.getRoot().getContext(), days);
 
         // 🔹 Базовые данные
-        holder.binding.tvGoal.setText(ChallengeStart.formatDays(days));
+        holder.binding.tvGoal.setText(Utils.formatDays(days));
         holder.binding.tvSubtitle.setText(SUBTITLES[position]);
         holder.binding.cardRoot.setSelected(done);
 
@@ -43,10 +43,6 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
                 done ? R.drawable.ic_check_circle : R.drawable.ic_lock_outline);
         holder.binding.ivStatus.setColorFilter(
                 done ? Color.parseColor("#4CAF50") : Color.parseColor("#E0E0E0"));
-
-        // 🔹 Бейдж "Новое" (если прошло недавно)
-        boolean isNew = done && (System.currentTimeMillis() - getLastCompletionTime(holder.binding.getRoot().getContext(), days) < 24 * 60 * 60 * 1000);
-        holder.binding.tvBadge.setVisibility(isNew ? View.VISIBLE : View.GONE);
 
         // 🔹 Анимация появления при прокрутке
         if (!holder.isAnimated) {
@@ -65,20 +61,25 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
         holder.binding.cardRoot.setOnClickListener(v -> {
             // Можно добавить диалог с деталями марафона
         });
+
+        /// Показываем попытку, если марафон пройден
+        if (done) {
+            int attempts = MarathonManager.getAttemptCount(holder.binding.getRoot().getContext(), days);
+            String attemptSuffix = attempts > 1 ? " (с #" + attempts + " попытки)" : " (с первой)";
+            holder.binding.tvSubtitle.setText(holder.binding.tvSubtitle.getText() + attemptSuffix);
+        }
     }
 
-    @Override public int getItemCount() { return ALL_MARATHONS.length; }
-
-    // Простая заглушка для времени прохождения (в реальном проекте — из БД)
-    private long getLastCompletionTime(android.content.Context ctx, int days) {
-        return MarathonManager.getStartTime(ctx); // Упрощённо
+    @Override
+    public int getItemCount() {
+        return ALL_MARATHONS.length;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         final ItemRewardsBinding binding;
         boolean isAnimated = false;
 
-        ViewHolder(ItemRewardsBinding binding) {
+        ViewHolder(@NonNull ItemRewardsBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

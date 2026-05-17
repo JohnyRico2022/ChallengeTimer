@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen.activity;
+package ru.nikita.challengetimer.ui.activities;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;

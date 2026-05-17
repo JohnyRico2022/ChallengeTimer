@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.database;
+package ru.nikita.challengetimer.data.database;
 
 
 import androidx.room.Dao;

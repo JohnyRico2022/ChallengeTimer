@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.customView;
+package ru.nikita.challengetimer.ui.customView;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,9 +7,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import ru.nikita.challengetimer.common.ChallengeStart;
-import ru.nikita.challengetimer.common.ChallengeTarget;
-import ru.nikita.challengetimer.common.MarathonManager;
+import ru.nikita.challengetimer.data.MarathonManager;
 
 public class CircularTimerView extends View {
 
@@ -34,10 +32,7 @@ public class CircularTimerView extends View {
     public CircularTimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
-        // loadStartDate();
     }
-
-
     private void init() {
 
         targetDays = MarathonManager.getActiveDays(getContext());
@@ -87,9 +82,6 @@ public class CircularTimerView extends View {
         if (!isCompleted && daysElapsed >= targetDays) {
             isCompleted = true;
             MarathonManager.completeMarathon(getContext(), targetDays);
-//            if (goalListener != null)
-//                goalListener.onGoalReached(new ChallengeGoal() { days = targetDays; }); // Или передай просто int
-//            NotificationHelper.sendGoalReachedNotification(getContext(), targetDays);
         }
 
         invalidate();
@@ -118,17 +110,12 @@ public class CircularTimerView extends View {
 
         // 3. Текст цели в центре
         String goalText = targetDays + " дн.";
-      //  String goalText = ChallengeTarget.ALL[currentTargetIndex].days + " дн.";
         float textSize = getWidth() * 0.10f;
         textPaint.setTextSize(textSize);
         float baseline = cy - (textPaint.descent() + textPaint.ascent()) / 2f;
         canvas.drawText(goalText, cx, baseline + 50, textPaint);
 
         canvas.drawText("Цель:", cx, baseline - 50, textPaint);
-    }
-
-    public long getStartDateMillis() {
-        return startDateMillis;
     }
 
     private static final String PREFS_NAME = "challenge_prefs";
@@ -139,15 +126,10 @@ public class CircularTimerView extends View {
                 .edit().putLong(KEY_START_DATE, startDateMillis).apply();
     }
 
-    // Вызывать из Activity/Fragment для смены даты
     public void resetStartDate(Context context, long newMillis) {
         this.startDateMillis = newMillis;
         this.currentTargetIndex = 0; // Сбрасываем цели к началу
         saveStartDate();
         tick(); // Перерисовка
-    }
-
-    private void loadStartDate() {
-        startDateMillis = ChallengeStart.getHardcodedStart();
     }
 }

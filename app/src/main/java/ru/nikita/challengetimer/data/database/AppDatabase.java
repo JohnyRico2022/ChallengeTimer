@@ -1,12 +1,13 @@
-package ru.nikita.challengetimer.database;
+package ru.nikita.challengetimer.data.database;
 
 import android.content.Context;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {Note.class}, version = 1, exportSchema = false)
+@Database(entities = {Note.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract NoteDao noteDao();
@@ -22,7 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     "challenge_notes_db"
                             )
-                            .fallbackToDestructiveMigration() // ⚠️ Только для dev! Удаляет таблицу при смене версии
+                            .fallbackToDestructiveMigration() /// Удаляем таблицу при смене версии
                             .build();
                 }
             }

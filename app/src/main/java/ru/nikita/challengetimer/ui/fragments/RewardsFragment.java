@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen.fragment;
+package ru.nikita.challengetimer.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import ru.nikita.challengetimer.adapters.RewardAdapter;
-import ru.nikita.challengetimer.common.MarathonManager;
+import ru.nikita.challengetimer.ui.adapters.RewardAdapter;
+import ru.nikita.challengetimer.data.MarathonManager;
 import ru.nikita.challengetimer.databinding.FragmentRewardsBinding;
 
 public class RewardsFragment extends Fragment {

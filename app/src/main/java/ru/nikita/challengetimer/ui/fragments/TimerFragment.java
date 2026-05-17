@@ -1,5 +1,6 @@
-package ru.nikita.challengetimer.screen.fragment;
+package ru.nikita.challengetimer.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,13 +12,17 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
-import ru.nikita.challengetimer.common.MarathonManager;
-import ru.nikita.challengetimer.customView.CircularTimerView;
+import ru.nikita.challengetimer.data.MarathonManager;
+import ru.nikita.challengetimer.ui.customView.CircularTimerView;
 import ru.nikita.challengetimer.R;
+import ru.nikita.challengetimer.ui.dialogs.AbortMarathonDialog;
+import ru.nikita.challengetimer.ui.activities.WelcomeActivity;
 
 public class TimerFragment extends Fragment {
 
@@ -37,11 +42,6 @@ public class TimerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         timerView = view.findViewById(R.id.timerView);
         tvPassedValue = view.findViewById(R.id.tvPassedValue);
-        // TextView title = view.findViewById(R.id.title);
-
-//        int activeDays = MarathonManager.getActiveDays(requireContext());
-//        String strTitle = (activeDays > 0) ? "Марафон: " + activeDays + " дней" : "Челлендж Таймер";
-        // title.setText(strTitle);
 
         tickRunnable = new Runnable() {
             @Override
@@ -51,6 +51,9 @@ public class TimerFragment extends Fragment {
                 handler.postDelayed(this, 1000);
             }
         };
+
+        Button abortMarathon = view.findViewById(R.id.button_abort);
+        abortMarathon.setOnClickListener(view1 -> showAbortDialog());
     }
 
     @Override
@@ -74,6 +77,35 @@ public class TimerFragment extends Fragment {
         long h = (elapsed % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000);
         long m = (elapsed % (60 * 60 * 1000)) / (60 * 1000);
         long s = (elapsed % (60 * 1000)) / 1000;
-        tvPassedValue.setText(String.format(Locale.getDefault(), "%d дн. %02d:%02d:%02d", d, h, m, s));
+
+        String dateText = ((int) d == 0)
+                ? String.format(Locale.getDefault(), "%02d:%02d:%02d", h, m, s)
+                : String.format(Locale.getDefault(), "%d дн. %02d:%02d:%02d", d, h, m, s);
+
+        tvPassedValue.setText(dateText);
+    }
+
+    private void showAbortDialog() {
+        AbortMarathonDialog dialog = new AbortMarathonDialog();
+        dialog.setListener(new AbortMarathonDialog.AbortDialogListener() {
+            @Override
+            public void onRestartMarathon() {
+                int days = MarathonManager.getActiveDays(requireContext());
+                MarathonManager.startMarathon(requireContext(), days);
+                /// Обновляем таймер без пересоздания фрагмента
+                timerView.resetStartDate(requireContext(), System.currentTimeMillis());
+                Toast.makeText(requireContext(), "🔄 Марафон начат заново", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResetMarathon() {
+                int days = MarathonManager.getActiveDays(requireContext());
+                MarathonManager.resetMarathonCompletely(requireContext(), days);
+                Toast.makeText(requireContext(), "🗑 Марафон сброшен", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(requireContext(), WelcomeActivity.class));
+                requireActivity().finish();
+            }
+        });
+        dialog.show(getChildFragmentManager(), "AbortDialog");
     }
 }

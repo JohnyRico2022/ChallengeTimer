@@ -1,11 +1,11 @@
-package ru.nikita.challengetimer.database;
+package ru.nikita.challengetimer.data.database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.time.DayOfWeek;
 
-import ru.nikita.challengetimer.note.PartOfDay;
+import ru.nikita.challengetimer.common.PartOfDay;
 
 @Entity(tableName = "notes")
 public class Note {
@@ -19,10 +19,13 @@ public class Note {
     public long date;
     public DayOfWeek day;
     public PartOfDay partOfDay;
+    public int marathonDays; // к какому марафону относится заметка
 
-    public Note() {} // Обязательный пустой конструктор для Room
+    public Note() {
+    }
 
-    public Note(String title, int state, int wish, String description, long date, DayOfWeek day, PartOfDay partOfDay) {
+    public Note(String title, int state, int wish, String description, long date,
+                DayOfWeek day, PartOfDay partOfDay, int marathonDays) {
         this.title = title;
         this.state = state;
         this.wish = wish;
@@ -30,5 +33,6 @@ public class Note {
         this.date = date;
         this.day = day;
         this.partOfDay = partOfDay;
+        this.marathonDays = marathonDays;
     }
 }

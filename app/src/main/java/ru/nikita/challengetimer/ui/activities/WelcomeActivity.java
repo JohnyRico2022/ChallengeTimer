@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen.activity;
+package ru.nikita.challengetimer.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ru.nikita.challengetimer.common.MarathonManager;
+import ru.nikita.challengetimer.data.MarathonManager;
 import ru.nikita.challengetimer.databinding.ActivityWelcomeBinding;
 import ru.nikita.challengetimer.databinding.ItemMarathonCardBinding;
-import ru.nikita.challengetimer.screen.MarathonSelectDialog;
+import ru.nikita.challengetimer.ui.dialogs.MarathonSelectDialog;
 
 public class WelcomeActivity extends AppCompatActivity {
     private ActivityWelcomeBinding binding;

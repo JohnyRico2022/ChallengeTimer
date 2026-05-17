@@ -1,12 +1,8 @@
-package ru.nikita.challengetimer.note;
+package ru.nikita.challengetimer.ui.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RatingBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -19,9 +15,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.time.DayOfWeek;
 
-import ru.nikita.challengetimer.database.AppDatabase;
-import ru.nikita.challengetimer.database.Note;
+import ru.nikita.challengetimer.data.MarathonManager;
+import ru.nikita.challengetimer.data.database.AppDatabase;
+import ru.nikita.challengetimer.data.database.Note;
 import ru.nikita.challengetimer.databinding.DialogAddNoteBinding;
+import ru.nikita.challengetimer.common.PartOfDay;
 
 public class AddNoteDialog extends DialogFragment {
 
@@ -48,12 +46,8 @@ public class AddNoteDialog extends DialogFragment {
 
         setupAutoInfo(binding);
 
-        Log.d(TAG, "onCreateDialog: ");
-
-
         binding.btnCancel.setOnClickListener(v -> dialog.dismiss());
         binding.btnSave.setOnClickListener(v -> {
-          //  String title = binding.etTitle.getText().toString().trim();
             String desc = binding.etDesc.getText().toString().trim();
 
             // Стало (округление + защита от 0):
@@ -64,11 +58,7 @@ public class AddNoteDialog extends DialogFragment {
             if (state == 0) state = 1;
             if (wish == 0) wish = 1;
 
-
-           /* if (title.isEmpty()) {
-                binding.etTitle.setError("Введите заголовок");
-                return;
-            }*/
+            int currentMarathon = MarathonManager.getActiveDays(requireContext());
 
             // 🔌 Сохранение в Room (фоновый поток)
             ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -79,14 +69,15 @@ public class AddNoteDialog extends DialogFragment {
                 Note note = new Note("", finalState, finalWish, desc,
                         cal.getTimeInMillis(),
                         getDayOfWeek(cal),
-                        getPartOfDay(cal)
+                        getPartOfDay(cal),
+                        currentMarathon
                 );
 
                 AppDatabase.getInstance(requireContext()).noteDao().insert(note);
 
                 requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(requireContext(), "✅ Заметка сохранена", Toast.LENGTH_SHORT).show();
-                    if (listener != null) listener.onNoteSaved();
+                    if (listener != null)
+                        listener.onNoteSaved();
                     dialog.dismiss();
                 });
                 executor.shutdown();
@@ -110,7 +101,7 @@ public class AddNoteDialog extends DialogFragment {
     }
 
     private DayOfWeek getDayOfWeek(@NonNull Calendar cal) {
-        // Calendar.SUNDAY=1 -> java.time.SUNDAY=7. Корректируем под ISO.
+        /// Calendar.SUNDAY=1 -> java.time.SUNDAY=7. Корректируем под ISO.
         int calDay = cal.get(Calendar.DAY_OF_WEEK);
         int isoDay = ((calDay + 5) % 7) + 1;
         return DayOfWeek.of(isoDay);

@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen.activity;
+package ru.nikita.challengetimer.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import ru.nikita.challengetimer.R;
-import ru.nikita.challengetimer.common.MarathonManager;
+import ru.nikita.challengetimer.data.MarathonManager;
 import ru.nikita.challengetimer.databinding.ActivityMainBinding;
-import ru.nikita.challengetimer.screen.fragment.InfoFragment;
-import ru.nikita.challengetimer.screen.fragment.NotesFragment;
-import ru.nikita.challengetimer.screen.fragment.RewardsFragment;
-import ru.nikita.challengetimer.screen.fragment.TimerFragment;
+import ru.nikita.challengetimer.ui.fragments.InfoFragment;
+import ru.nikita.challengetimer.ui.fragments.NotesFragment;
+import ru.nikita.challengetimer.ui.fragments.RewardsFragment;
+import ru.nikita.challengetimer.ui.fragments.TimerFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment timerFragment, rewardsFragment, notesFragment, infoFragment;

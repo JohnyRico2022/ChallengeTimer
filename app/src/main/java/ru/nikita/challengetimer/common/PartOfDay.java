@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.note;
+package ru.nikita.challengetimer.common;
 
 public enum PartOfDay {
     MORNING, DAY, EVENING, NIGHT

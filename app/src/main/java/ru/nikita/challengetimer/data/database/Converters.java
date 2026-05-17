@@ -1,9 +1,9 @@
-package ru.nikita.challengetimer.database;
+package ru.nikita.challengetimer.data.database;
 
 import androidx.room.TypeConverter;
 import java.time.DayOfWeek;
 
-import ru.nikita.challengetimer.note.PartOfDay;
+import ru.nikita.challengetimer.common.PartOfDay;
 
 public class Converters {
     @TypeConverter

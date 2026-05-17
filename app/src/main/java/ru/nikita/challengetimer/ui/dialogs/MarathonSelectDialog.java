@@ -1,4 +1,4 @@
-package ru.nikita.challengetimer.screen;
+package ru.nikita.challengetimer.ui.dialogs;
 
 import android.app.Dialog;
 import android.graphics.Color;
