@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardRoot"
     android:layout_width="match_parent"
     android:layout_height="120dp"
@@ -18,30 +19,32 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvDays"
+            android:id="@+id/days_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="3" />
 
         <TextView
+            android:id="@+id/days_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="дней"
             android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="дней" />
 
         <TextView
-            android:id="@+id/tvStatus"
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Начать"
             android:textColor="#E0E0E0"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Начать" />
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

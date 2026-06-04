@@ -1,5 +1,72 @@
 <resources>
+    <!-- Экраны и заголовки -->
     <string name="app_name">Challenge Timer</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="screen_select_title">Выбери челлендж</string>
+    <string name="screen_rewards_title">🏆 Твои награды</string>
+
+    <!-- Марафоны: Слоганы, статусы, метки -->
+    <string name="marathon_subtitle_1day">Первый шаг</string>
+    <string name="marathon_subtitle_3days">Новый фундамент</string>
+    <string name="marathon_subtitle_5days">Ритм привычки</string>
+    <string name="marathon_subtitle_7days">Неделя силы</string>
+    <string name="marathon_subtitle_10days">Декада прогресса</string>
+    <string name="marathon_subtitle_14days">Полмесяца дисциплины</string>
+    <string name="marathon_subtitle_21days">Привычка сформирована</string>
+    <string name="marathon_subtitle_30days">Месяц трансформации</string>
+
+    <string name="challenge_status_completed">✅ Пройден</string>
+    <string name="marathon_attempt_first">с первой</string>
+    <string name="marathon_attempt_retry">с #%d попытки</string>
+
+    <string name="label_marathon">Челлендж</string>
+    <string name="label_days">дней</string>
+    <string name="label_days_short">дн.</string>
+    <string name="no_active_challenge">"Нет активного челленджа"</string>
+
+    <!-- Диалоги -->
+    <string name="dialog_start_title">Начать марафон?</string>
+    <string name="dialog_start_message">Ты готов посвятить %d дня челленджу?\nСосредоточься, выдохни и погнали 💪</string>
+
+    <string name="dialog_abort_title">Прервать челлендж?</string>
+    <string name="dialog_abort_message">Что ты хочешь сделать с текущим прогрессом?</string>
+
+    <!-- Диалог заметок -->
+    <string name="note_dialog_title">Новая заметка</string>
+    <string name="note_label_mood">Как себя чувствуешь?</string>
+    <string name="note_label_craving">Тяга / Желание</string>
+    <string name="note_hint_desc">Описание...</string>
+
+    <!-- SOS Экран -->
+    <string name="sos_phrase_1">Дыши спокойно и глубоко. Ты в безопасности.</string>
+    <string name="sos_phrase_2">Это чувство временно. Оно пройдёт.</string>
+    <string name="sos_phrase_3">Ты сильнее, чем думаешь.</string>
+    <string name="sos_phrase_4">Сосредоточься на том, что можешь контролировать.</string>
+    <string name="sos_phrase_5">Вокруг тишина и спокойствие.</string>
+
+    <!-- Таймер и Награды -->
+    <string name="timer_label_passed">Уже прошло</string>
+    <string name="placeholder_no_rules">Правил не задано</string>
+    <string name="tooltip_show_rules">Правила марафона</string>
+
+    <!-- Время суток -->
+    <string name="part_morning">Утро</string>
+    <string name="part_day">День</string>
+    <string name="part_evening">Вечер</string>
+    <string name="part_night">Ночь</string>
+
+    <!-- Форматирование дней (склонение) -->
+    <string name="format_days_one">%d день</string>
+    <string name="format_days_few">%d дня</string>
+    <string name="format_days_many">%d дней</string>
+
+    <!-- Кнопки и действия (универсальные) -->
+    <string name="btn_start">Начать!</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="button_cancel">Отмена</string>
+    <string name="btn_repeat">Повторить</string>
+    <string name="btn_handled">Я справился!</string>
+    <string name="button_restart_challenge">Начать заново</string>
+    <string name="button_reset_challenge">Сбросить совсем</string>
+    <string name="button_stop_challenge">Остановить челлендж</string>
+
 </resources>

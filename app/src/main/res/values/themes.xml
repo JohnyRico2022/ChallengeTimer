@@ -8,5 +8,10 @@
     <style name="Theme.ChallengeTimer" parent="Base.Theme.ChallengeTimer" >
         <item name="android:statusBarColor">#FFFFFF</item> <!-- ✅ Белый фон статус-бара -->
         <item name="android:windowLightStatusBar">true</item> <!-- ✅ Тёмные иконки (часы, батарея) -->
+
+        <!-- Splash Screen (Android 12+ native) -->
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="android:windowSplashScreenBackground">@color/primary</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/surface</item>
     </style>
 </resources>

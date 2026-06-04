@@ -25,8 +25,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Прервать марафон?"
-            android:textColor="#1A1A1A"
+            android:text="@string/dialog_abort_title"
+            android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
-            android:text="Что ты хочешь сделать с текущим прогрессом?"
+            android:text="@string/dialog_abort_message"
             android:textColor="#616161"
             android:textSize="15sp" />
 
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#2196F3"
-                android:text="🔄 Начать заново"
+                android:text="@string/button_restart_challenge"
                 android:textColor="#FFFFFF" />
 
             <Button
@@ -62,7 +62,7 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🗑 Сбросить совсем"
+                android:text="@string/button_reset_challenge"
                 android:textColor="#E53935"
                 app:strokeColor="#E53935" />
 
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                android:text="Отмена"
+                android:text="@string/button_cancel"
                 android:textColor="#757575" />
         </LinearLayout>
 

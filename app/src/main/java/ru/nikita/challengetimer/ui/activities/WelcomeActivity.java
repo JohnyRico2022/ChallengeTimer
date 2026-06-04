@@ -10,14 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ru.nikita.challengetimer.R;
 import ru.nikita.challengetimer.data.MarathonManager;
 import ru.nikita.challengetimer.databinding.ActivityWelcomeBinding;
 import ru.nikita.challengetimer.databinding.ItemMarathonCardBinding;
 import ru.nikita.challengetimer.ui.dialogs.MarathonSelectDialog;
+import ru.nikita.challengetimer.utils.Utils;
 
 public class WelcomeActivity extends AppCompatActivity {
     private ActivityWelcomeBinding binding;
-    private final int[] DAYS = {1, 3, 5, 7, 10, 14};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
         binding = ActivityWelcomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Если марафон уже активен -> сразу в MainActivity
+        /// Если марафон уже активен -> сразу в MainActivity
         if (MarathonManager.hasActive(this)) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -38,12 +39,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void showStartDialog(int days) {
         MarathonSelectDialog dialog = MarathonSelectDialog.newInstance(days);
-        dialog.setListener(new MarathonSelectDialog.MarathonDialogListener() {
-            @Override public void onMarathonStarted(int selectedDays) {
-                MarathonManager.startMarathon(WelcomeActivity.this, selectedDays);
-                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                finish(); // Закрываем экран выбора
-            }
+        dialog.setListener(selectedDays -> {
+            MarathonManager.startMarathon(WelcomeActivity.this, selectedDays);
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            finish();
         });
         dialog.show(getSupportFragmentManager(), "MarathonDialog");
     }
@@ -56,31 +55,24 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull VH h, int pos) {
-            int days = DAYS[pos];
+        public void onBindViewHolder(@NonNull VH holder, int pos) {
+            int days = MarathonManager.getChallenges()[pos];
             boolean completed = MarathonManager.isCompleted(WelcomeActivity.this, days);
-            h.binding.tvDays.setText(String.valueOf(days));
-            h.binding.tvStatus.setText(completed ? "✅ Пройден" : "Начать");
-            h.binding.cardRoot.setSelected(completed);
-            h.itemView.setOnClickListener(v -> showStartDialog(days));
-          /*  h.itemView.setOnClickListener(v -> {
-                if (completed) return; // Уже пройден
-                new AlertDialog.Builder(WelcomeActivity.this)
-                        .setTitle("Начать марафон?")
-                        .setMessage("Ты уверен, что хочешь начать челлендж на " + days + " дней?")
-                        .setPositiveButton("Да", (d, w) -> {
-                            MarathonManager.startMarathon(WelcomeActivity.this, days);
-                            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                            finish();
-                        })
-                        .setNegativeButton("Отмена", null)
-                        .show();
-            });*/
+            String daysFormat = Utils.formatDays(days);
+            String status = completed
+                    ? holder.binding.getRoot().getContext().getString(R.string.challenge_status_completed)
+                    : "";
+
+            holder.binding.daysCount.setText(String.valueOf(days));
+            holder.binding.daysFormat.setText(daysFormat);
+            holder.binding.status.setText(status);
+            holder.binding.cardRoot.setSelected(completed);
+            holder.itemView.setOnClickListener(v -> showStartDialog(days));
         }
 
         @Override
         public int getItemCount() {
-            return DAYS.length;
+            return MarathonManager.getChallenges().length;
         }
 
         class VH extends RecyclerView.ViewHolder {

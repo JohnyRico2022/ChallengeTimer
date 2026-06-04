@@ -17,7 +17,7 @@ import ru.nikita.challengetimer.databinding.FragmentRewardsBinding;
 public class RewardsFragment extends Fragment {
     private FragmentRewardsBinding binding;
     private RewardAdapter adapter;
-    private final int[] ALL_MARATHONS = {1, 3, 5, 7, 10, 14};
+
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,11 +38,11 @@ public class RewardsFragment extends Fragment {
 
     private void updateProgress() {
         int completed = 0;
-        for (int days : ALL_MARATHONS) {
+        for (int days : MarathonManager.getChallenges()) {
             if (MarathonManager.isCompleted(requireContext(), days)) completed++;
         }
-        binding.tvProgress.setText(completed + " из " + ALL_MARATHONS.length + " пройдено");
-        binding.tvPercent.setText((completed * 100 / ALL_MARATHONS.length) + "%");
+        binding.tvProgress.setText(completed + " из " + MarathonManager.getChallenges().length + " пройдено");
+        binding.tvPercent.setText((completed * 100 / MarathonManager.getChallenges().length) + "%");
     }
 
     @Override

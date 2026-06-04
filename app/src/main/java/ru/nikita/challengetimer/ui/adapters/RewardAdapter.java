@@ -14,11 +14,8 @@ import ru.nikita.challengetimer.databinding.ItemRewardsBinding;
 import ru.nikita.challengetimer.utils.Utils;
 
 public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder> {
-    private final int[] ALL_MARATHONS = {1, 3, 5, 7, 10, 14};
-    private final String[] SUBTITLES = {
-            "Первый шаг", "Неделя силы", "Полумесяц", "Две недели",
-            "Декада привычки", "Путь мастера"
-    };
+    // private final int[] ALL_MARATHONS = {1, 3, 5, 7, 10, 14};
+
 
     @NonNull
     @Override
@@ -30,12 +27,12 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int days = ALL_MARATHONS[position];
+        int days = MarathonManager.getChallenges()[position];
         boolean done = MarathonManager.isCompleted(holder.binding.getRoot().getContext(), days);
 
         // 🔹 Базовые данные
         holder.binding.tvGoal.setText(Utils.formatDays(days));
-        holder.binding.tvSubtitle.setText(SUBTITLES[position]);
+        holder.binding.tvSubtitle.setText(MarathonManager.getChallengeSubtitle()[position]);
         holder.binding.cardRoot.setSelected(done);
 
         // 🔹 Иконка статуса: галочка или замок
@@ -65,14 +62,14 @@ public class RewardAdapter extends RecyclerView.Adapter<RewardAdapter.ViewHolder
         /// Показываем попытку, если марафон пройден
         if (done) {
             int attempts = MarathonManager.getAttemptCount(holder.binding.getRoot().getContext(), days);
-            String attemptSuffix = attempts > 1 ? " (с #" + attempts + " попытки)" : " (с первой)";
+            String attemptSuffix = attempts > 1 ? " (с #" + attempts + " попытки)" : " (с первой попытки)";
             holder.binding.tvSubtitle.setText(holder.binding.tvSubtitle.getText() + attemptSuffix);
         }
     }
 
     @Override
     public int getItemCount() {
-        return ALL_MARATHONS.length;
+        return MarathonManager.getChallenges().length;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-
     <color name="white">#FFFFFFFF</color>
     <color name="white_main">#FAFAFA</color>
+
+    <!-- Поверхности и фон -->
+    <color name="surface">#FFFFFF</color>
+    <color name="background">#FAFAFA</color>
 
     <color name="white30">#4DFFFFFF</color>
     <color name="grey50">#80AEAAAA</color>
     <color name="purple80">#CC9C27B0</color>
     <color name="purple50">#809C27B0</color>
 
+    <color name="light_purple30">#4DB480BD</color>
+
     <color name="marathon_default_bg">#2196F3</color>
     <color name="marathon_completed_bg">#4CAF50</color>
-
 
     <color name="green">#4CAF50</color>
     <color name="blue">#2196F3</color>
     <color name="red">#D20606</color>
     <color name="yellow">#F1DA0E</color>
+
+
+    <!-- Основные / Бренд -->
+    <color name="primary">#2196F3</color>
+    <color name="primary_variant">#1976D2</color>
+    <color name="primary_on">#FFFFFF</color>
+
 </resources>
