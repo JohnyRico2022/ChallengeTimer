@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.InfoFragment">
+    tools:context=".ui.fragments.SettingsFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue"
+        android:background="@color/white_main"
         android:gravity="center"
-        android:text="Info"
+        android:text="Скоро здесь будут настройки"
         android:textSize="30sp" />
 
 </FrameLayout>

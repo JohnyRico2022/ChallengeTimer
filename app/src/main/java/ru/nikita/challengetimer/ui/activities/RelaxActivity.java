@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ru.nikita.challengetimer.R;
 import ru.nikita.challengetimer.databinding.ActivitySosBinding;
 
-public class SosActivity extends AppCompatActivity {
+public class RelaxActivity extends AppCompatActivity {
     private Handler handler = new Handler(Looper.getMainLooper());
     private MediaPlayer mediaPlayer;
     private int currentPhraseIndex = 0;

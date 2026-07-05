@@ -16,7 +16,7 @@
             android:name=".ui.activities.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.SosActivity"
+            android:name=".ui.activities.RelaxActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"

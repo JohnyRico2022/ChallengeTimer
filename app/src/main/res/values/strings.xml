@@ -25,7 +25,7 @@
 
     <!-- Диалоги -->
     <string name="dialog_start_title">Начать марафон?</string>
-    <string name="dialog_start_message">Ты готов посвятить %d дня челленджу?\nСосредоточься, выдохни и погнали 💪</string>
+    <string name="dialog_start_message">Ты готов посвятить %s дня челленджу?\nСосредоточься, выдохни и погнали 💪</string>
 
     <string name="dialog_abort_title">Прервать челлендж?</string>
     <string name="dialog_abort_message">Что ты хочешь сделать с текущим прогрессом?</string>

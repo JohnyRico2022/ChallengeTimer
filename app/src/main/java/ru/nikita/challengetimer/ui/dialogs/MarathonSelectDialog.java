@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import ru.nikita.challengetimer.databinding.DialogMaraphonConfirmBinding;
+import ru.nikita.challengetimer.utils.Utils;
 
 public class MarathonSelectDialog extends DialogFragment {
     private static final String ARG_DAYS = "arg_days";
@@ -56,13 +58,20 @@ public class MarathonSelectDialog extends DialogFragment {
     @Override
     public android.view.View onCreateView(@NonNull LayoutInflater inflater, android.view.ViewGroup container, Bundle savedInstanceState) {
         DialogMaraphonConfirmBinding binding = DialogMaraphonConfirmBinding.inflate(inflater, container, false);
-        int days = getArguments() != null ? getArguments().getInt(ARG_DAYS) : 1;
+        int daysCount = getArguments() != null ? getArguments().getInt(ARG_DAYS) : 1;
+        Log.d("MyLog", "daysCount:  " + daysCount + "  ");
 
-        binding.tvMessage.setText(String.format("Ты готов посвятить %d дня челленджу?\nСосредоточься, выдохни и погнали 💪", days));
+        String daysStr = Utils.formatDays(daysCount);
+        Log.d("MyLog", "daysStr:  " + daysStr + "  ");
 
+        String text = "Если ты готов посвятить " + daysStr + " челленджу - сосредоточься, выдохни и погнали 💪";
+        Log.d("MyLog", "text:  " + text + "  ");
+
+
+        binding.tvMessage.setText(text);
         binding.btnCancel.setOnClickListener(v -> dismiss());
         binding.btnStart.setOnClickListener(v -> {
-            if (listener != null) listener.onMarathonStarted(days);
+            if (listener != null) listener.onMarathonStarted(daysCount);
             dismiss();
         });
 

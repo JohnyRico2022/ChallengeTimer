@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="20dp"
     app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="24dp"
@@ -28,7 +29,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Начать марафон?"
+            android:text="Начать Челлендж?"
             android:textColor="#1A1A1A"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -41,7 +42,7 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
-            android:text="Готов посвятить этому 3 дня?\nСосредоточься, выдохни и погнали 💪"
+            tools:text="Готов посвятить этому 3 дня?\nСосредоточься, выдохни и погнали 💪"
             android:textColor="#616161"
             android:textSize="15sp" />
 

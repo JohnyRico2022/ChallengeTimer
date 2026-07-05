@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import ru.nikita.challengetimer.R;
 import ru.nikita.challengetimer.data.MarathonManager;
 import ru.nikita.challengetimer.databinding.ActivityMainBinding;
-import ru.nikita.challengetimer.ui.fragments.InfoFragment;
+import ru.nikita.challengetimer.ui.fragments.SettingsFragment;
 import ru.nikita.challengetimer.ui.fragments.NotesFragment;
 import ru.nikita.challengetimer.ui.fragments.RewardsFragment;
 import ru.nikita.challengetimer.ui.fragments.TimerFragment;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         timerFragment = new TimerFragment();
         rewardsFragment = new RewardsFragment();
         notesFragment = new NotesFragment();
-        infoFragment = new InfoFragment();
+        infoFragment = new SettingsFragment();
 
         BottomNavigationView nav = findViewById(R.id.bottom_nav);
         nav.setOnItemSelectedListener(item -> {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        binding.sosFab.setOnClickListener(View -> startActivity(new Intent(this, SosActivity.class)));
+        binding.relaxFab.setOnClickListener(View -> startActivity(new Intent(this, RelaxActivity.class)));
 
         /// Показываем таймер по умолчанию
         if (savedInstanceState == null) {
